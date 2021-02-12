@@ -10,6 +10,7 @@ import com.MyWebsite.Services.RoomService;
 import com.MyWebsite.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -57,7 +58,7 @@ public class RoomController {
     }
 
     @PatchMapping(value = "/{id}")
-    public ResponseEntity<ResponseContent<Room>> addNewUserToRoom(final @PathVariable("id") String roomId, final @RequestBody UserRequest userRequest) {
+    public ResponseEntity<ResponseContent<Room>> addNewUserToRoom(final @PathVariable("id") String roomId, final @NonNull @RequestBody UserRequest userRequest) {
         UserResponse userResponse = this.userService.getUser(userRequest.getId());
         this.roomService.getRoom(roomId).addParticipant(userResponse);
 

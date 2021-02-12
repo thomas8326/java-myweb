@@ -1,6 +1,5 @@
 package com.MyWebsite.Entities.Room;
 
-import com.MyWebsite.Entities.User.UserRequest;
 import com.MyWebsite.Entities.User.UserResponse;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,12 +17,12 @@ public class Room {
 
     private String name;
 
-    private List<UserResponse> participant;
+    private List<UserResponse> participants;
 
     public Room(String id, String name, List<UserResponse> participant) {
         this.id = id;
         this.name = name;
-        this.participant = participant;
+        this.participants = participant;
     }
 
     public Room(String id, String name) {
@@ -45,16 +45,17 @@ public class Room {
         this.name = name;
     }
 
-    public List<UserResponse> getParticipant() {
-        return participant;
+    public List<UserResponse> getParticipants() {
+        return participants;
     }
 
-    public void setParticipant(List<UserResponse> participant) {
-        this.participant = participant;
+    public void setParticipants(List<UserResponse> participants) {
+        this.participants = participants;
     }
 
     public void addParticipant(UserResponse userRequest) {
-        this.participant.add(userRequest);
+        this.participants.add(userRequest);
+        this.participants = this.participants.stream().distinct().collect(Collectors.toList());
     }
 
     @Override
